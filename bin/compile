@@ -160,6 +160,6 @@ fi
 # Install sqlx so we can use it for migrations
 if [ $RUST_INSTALL_SQLX -eq 1 ]; then
   echo "-----> Installing sqlx"
-  argo install sqlx-cli --no-default-features --features rustls,postgres || echo "already installed"
+  cargo install sqlx-cli --no-default-features --features rustls,postgres || echo "already installed"
   cp $(which sqlx) target/release/
 fi
