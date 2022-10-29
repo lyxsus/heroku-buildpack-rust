@@ -35,6 +35,12 @@ DIESEL_FLAGS=""
 # Default build flags to pass to `cargo build`.
 RUST_CARGO_BUILD_FLAGS="--release"
 
+# Set this to "1" in `RustConfig` to install sqlx at build time and copy it
+# into the target directory, next to your app binary. This makes it easy to
+# run migrations by adding a release step to your Procfile:
+# `release: ./target/release/sqlx migrate run`
+RUST_INSTALL_SQLX=0
+
 # Load our toolchain configuration, if any was specified.
 if [ -f "$BUILD_DIR/rust-toolchain" ]; then
     VERSION="$(cat "$BUILD_DIR/rust-toolchain")"
@@ -149,4 +155,11 @@ if [ $RUST_INSTALL_DIESEL -eq 1 ]; then
   echo "-----> Installing diesel"
   cargo install diesel_cli $DIESEL_FLAGS || echo "already installed"
   cp $(which diesel) target/release/
+fi
+
+# Install sqlx so we can use it for migrations
+if [ $RUST_INSTALL_SQLX -eq 1 ]; then
+  echo "-----> Installing sqlx"
+  argo install sqlx-cli --no-default-features --features rustls,postgres || echo "already installed"
+  cp $(which sqlx) target/release/
 fi
