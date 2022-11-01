@@ -126,13 +126,6 @@ if [ ! -x "$CARGO_HOME/bin/rustc" ]; then
   exit 1
 fi
 
-# Install sqlx so we can use it for migrations
-if [ $RUST_INSTALL_SQLX -eq 1 ]; then
-  echo "-----> Installing lld"
-  apt-get update
-  apt-get install -y lld
-fi
-
 # This is where we will cache our Rust output.  Note the suggestions at
 # https://github.com/alexcrichton/cargo/commit/014765f788ca1c2476936835ca32cc2746f99b42
 # which describe how this needs to be named.
