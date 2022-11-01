@@ -129,6 +129,7 @@ fi
 # Install sqlx so we can use it for migrations
 if [ $RUST_INSTALL_SQLX -eq 1 ]; then
   echo "-----> Installing lld"
+  apt-get update
   apt-get install -y lld
 fi
 
