@@ -163,3 +163,9 @@ if [ $RUST_INSTALL_SQLX -eq 1 ]; then
   cargo install sqlx-cli --no-default-features --features rustls,postgres || echo "already installed"
   cp $(which sqlx) target/release/
 fi
+
+# Install wasi
+if [ $RUST_INSTALL_WASI -eq 1 ]; then
+  echo "-----> Installing wasi"
+  cargo install cargo-wasi || echo "already installed"
+fi
